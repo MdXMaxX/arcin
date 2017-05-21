@@ -54,6 +54,12 @@ SECTIONS {
 	
 	PROVIDE(_data_rom = .);
 	
+	.bootinfo : {
+		*(.bootinfo)
+	} > ram
+	
+	. = ALIGN(4);
+	
 	.data : {
 		PROVIDE(_data_start = .);
 		*(.data)
@@ -75,4 +81,6 @@ SECTIONS {
 		. = ALIGN(4);
 		PROVIDE(_bss_end = .);
 	} > ram    
+	
+	PROVIDE(_ram_end = ORIGIN(ram) + LENGTH(ram));
 }
