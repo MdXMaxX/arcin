@@ -589,10 +589,10 @@ int main() {
 			int8_t rx = qe1_count - last_x;
 			int8_t ry = qe2_count - last_y;
 
-			if((last_dir_x == 1 && rx > 0) || (last_dir_x == -1 && rx > 1)) {
+			if((last_dir_x == 1 && rx > 0) || (rx > 1)) {
 				state_x = 100;
 				last_x = qe1_count;
-			} else if((last_dir_x == -1 && rx < 0) || (last_dir_x == 1 && rx < -1)) {
+			} else if((last_dir_x == -1 && rx < 0) || (rx < -1)) {
 				state_x = -100;
 				last_x = qe1_count;
 			} else if(state_x > 0) {
@@ -601,12 +601,15 @@ int main() {
 			} else if(state_x < 0) {
 				state_x++;
 				last_x = qe1_count;
+			} else {
+				last_dir_x = 0;
+				last_x = qe1_count;
 			}
 
-			if((last_dir_y == 1 && ry > 0) || (last_dir_y == -1 && ry > 1)) {
+			if((last_dir_y == 1 && ry > 0) || (ry > 1)) {
 				state_y = 100;
 				last_y = qe2_count;
-			} else if((last_dir_y == -1 && ry < 0) || (last_dir_y == 1 && ry < -1)) {
+			} else if((last_dir_y == -1 && ry < 0) || (ry < -1)) {
 				state_y = -100;
 				last_y = qe2_count;
 			} else if(state_y > 0) {
@@ -614,6 +617,9 @@ int main() {
 				last_y = qe2_count;
 			} else if(state_y < 0) {
 				state_y++;
+				last_y = qe2_count;
+			} else {
+				last_dir_y = 0;
 				last_y = qe2_count;
 			}
 
